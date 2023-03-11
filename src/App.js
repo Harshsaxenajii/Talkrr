@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import ScrollToTop from "./Components/Helper/ScrollToTop";
+import Spinner from "./Components/Helper/Spinner";
 
-function App() {
+const Home = React.lazy(() => import("./Components/Home"));
+const Login = React.lazy(() => import("./Components/Auth/Login"));
+const Register = React.lazy(() => import("./Components/Auth/Register"));
+export default function App() {
+  // const user = auth.currentUser;
+  // const ProtectedRoute = ({ children }) => {
+  //   if (!user) {
+  //     Navigate("/login");
+  //   }
+  // };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <React.Suspense fallback={<Spinner />}>
+              {/* <ProtectedRoute> */}
+              <Home />
+              {/* </ProtectedRoute> */}
+            </React.Suspense>
+          }
+        />
+
+        <Route
+          exact
+          path="/Login"
+          element={
+            <React.Suspense fallback={<Spinner />}>
+              <Login />
+            </React.Suspense>
+          }
+        />
+        <Route
+          exact
+          path="/Register"
+          element={
+            <React.Suspense fallback={<Spinner />}>
+              <Register />
+            </React.Suspense>
+          }
+        />
+        <Route exact path="/load" element={<Spinner />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

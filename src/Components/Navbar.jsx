@@ -24,7 +24,7 @@ function Navbar() {
   };
   return (
     <div className="flex justify-between px-4 py-3 bg-black  text-gray-300 relative">
-      <div>ConnectApp</div>
+      <div>Talkrr</div>
       <div
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}

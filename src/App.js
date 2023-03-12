@@ -1,24 +1,13 @@
-import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./Components/Helper/ScrollToTop";
 import Spinner from "./Components/Helper/Spinner";
 
+import ProtectedRoute from "./Components/Helper/ProtectedRoute";
 const Home = React.lazy(() => import("./Components/Home"));
 const Login = React.lazy(() => import("./Components/Auth/Login"));
 const Register = React.lazy(() => import("./Components/Auth/Register"));
-export default function App() {
-  // const user = auth.currentUser;
-  // const ProtectedRoute = ({ children }) => {
-  //   if (!user) {
-  //     Navigate("/login");
-  //   }
-  // };
 
+export default function App() {
   return (
     <Router>
       <ScrollToTop />
@@ -28,9 +17,9 @@ export default function App() {
           path="/"
           element={
             <React.Suspense fallback={<Spinner />}>
-              {/* <ProtectedRoute> */}
-              <Home />
-              {/* </ProtectedRoute> */}
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
             </React.Suspense>
           }
         />

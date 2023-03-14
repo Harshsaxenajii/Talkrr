@@ -4,9 +4,15 @@
 
 .back {
   background-image: url("../public/Images/bg.jpg");
+  background-size: cover;
 }
 body::-webkit-scrollbar {
   width: 2px;
+}
+
+.newBack {
+  background-image: url("../public/Images/bg.jpg");
+  background-size: cover;
 }
 
 body::-webkit-scrollbar-track {

@@ -55,7 +55,7 @@ function Input() {
         <div>
           <img className="w-8" src="./Images/attachments.png" alt="" />
         </div>
-        <div className="bg-[#212121] w-full flex items-center rounded-xl">
+        <div className="bg-[#0a0026] w-full flex items-center rounded-xl">
           <input
             className=" bg-transparent w-full p-3 outline-none text-white"
             type="text"

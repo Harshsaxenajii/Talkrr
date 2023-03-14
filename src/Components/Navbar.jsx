@@ -16,15 +16,15 @@ function Navbar() {
     return (
       <div
         onClick={props.work}
-        className="bg-black py-1 px-3 cursor-pointer hover:bg-slate-900"
+        className="bg-[#0a0026] py-1 px-3 cursor-pointer hover:bg-slate-900"
       >
         {props.title}
       </div>
     );
   };
   return (
-    <div className="flex justify-between px-4 py-3 bg-black  text-gray-300 relative">
-      <div>Talkrr</div>
+    <div className="flex justify-between px-4 py-3 bg-[#0a0026]  text-gray-300 relative">
+      <div className="text-gray-300 text-lg">Talkrr</div>
       <div
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}

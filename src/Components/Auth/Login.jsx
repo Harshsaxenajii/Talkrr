@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,54 +30,64 @@ function Login() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-r from-cyan-600 to-cyan-100 flex justify-center items-center">
-      <div className="h-[55rem] w-[95rem] bg-white rounded-2xl p-12 shadow-md flex justify-center items-center divide-x-2">
-        <section className="w-1/2 flex flex-col justify-center items-center h-full">
-          <div className="text-6xl text-cyan-500">Please Login Here </div>
-        </section>
-        <section className="w-1/2 flex flex-col justify-center items-center h-full">
-          <form action="" className="flex flex-col gap-4 justify-center ">
+    <div>
+      <div className="newBack h-screen flex justify-center items-center ">
+        <div className=" h-[50rem] w-[60rem] border-blue-900 border-2 rounded-md bg-[#1d1f39] items-center justify-center  flex flex-col relative">
+          <form action="" className="flex flex-col gap-4 justify-center">
+            <div className="flex gap-6 mb-12">
+              <div className="text-cyan-500 text-6xl">Login Here</div>
+              <img
+                className="absolute top-20 w-40 right-52"
+                src="./Images/logo1.png"
+                alt=""
+              />
+            </div>
             {error && (
-              <div className="w-full border-2 py-3 px-4 border-red-600 bg-red-200 text-gray-500 rounded-3xl">
+              <div className="w-full py-1 px-3  bg-red-600 text-gray-200">
                 {error}
               </div>
             )}
-            <input
-              // className="border-cyan-400 border-2 py-3 px-4 w-96 rounded-3xl"
-              class="outline-none border-cyan-400 border-2 py-3 px-4 w-96 rounded-3xl"
-              placeholder="Enter Your Email Name"
-              onChange={(e) => setEmail(e.target.value)}
-              type="text"
-              name=""
-              id=""
-            />
-            <input
-              className="outline-none border-cyan-400 border-2 py-3 px-4 w-96 rounded-3xl"
-              placeholder="Enter Your Password Name"
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              name=""
-              id=""
-            />
+            <div className="flex flex-col gap-1">
+              <div className=" text-gray-300">Email</div>
+              <input
+                className="outline-none border-blue-700 border-2 py-1 px-2 w-96 "
+                placeholder="Enter Your Email Name"
+                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className=" text-gray-300">Password</div>
+              <input
+                className="outline-none border-blue-700 border-2 py-1 px-2 w-96 "
+                placeholder="Enter Your Password Name"
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                name=""
+                id=""
+              />
+            </div>
             <Link to="/Register">
-              <div className="py-3 px-4 text-sm text-cyan-400">
+              <div className="py-3  text-sm text-cyan-400">
                 New Customer ? Regiser Now.
               </div>
             </Link>
             <button
+              onClick={handleGoogleSignIn}
+              className="text-white bg-gradient-to-l w-6 "
+            >
+              <img src="./Images/google.png" alt="" />
+            </button>
+            <button
               onClick={handleSubmit}
-              className="text-white bg-gradient-to-l from-cyan-600 to-cyan-300 py-3 px-4 w-96 rounded-3xl"
+              className="text-white bg-gradient-to-l from-black to-[#0a0026] hover:to-black hover:from-[#0a0026] transition-all delay-75 ease-in-out py-1 px-2 w-96"
             >
               Comfirm With Your Details
             </button>
-            <button
-              onClick={handleGoogleSignIn}
-              className="text-white bg-gradient-to-l from-cyan-600 to-cyan-300 py-3 px-4 w-96 rounded-3xl"
-            >
-              Sign In With Google
-            </button>
           </form>
-        </section>
+        </div>
       </div>
     </div>
   );

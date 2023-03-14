@@ -6,6 +6,7 @@ import ProtectedRoute from "./Components/Helper/ProtectedRoute";
 const Home = React.lazy(() => import("./Components/Home"));
 const Login = React.lazy(() => import("./Components/Auth/Login"));
 const Register = React.lazy(() => import("./Components/Auth/Register"));
+const NotFound = React.lazy(() => import("./Components/Helper/NotFound"));
 export default function App() {
   return (
     <Router>
@@ -38,6 +39,14 @@ export default function App() {
           element={
             <React.Suspense fallback={<Spinner />}>
               <Register />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <React.Suspense fallback={<Spinner />}>
+              <NotFound />
             </React.Suspense>
           }
         />

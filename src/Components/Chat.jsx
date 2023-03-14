@@ -9,7 +9,7 @@ function Chat() {
     <div>
       {data.user?.displayName && (
         <div>
-          <div className="flex bg-black px-4 py-5 justify-between">
+          <div className="flex bg-[#0a0026] px-4 py-5 justify-between">
             <div className="flex gap-6">
               <img
                 className="w-12 h-12 rounded-full"

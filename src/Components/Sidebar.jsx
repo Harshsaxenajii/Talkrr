@@ -5,7 +5,7 @@ import Chats from "./Chats";
 
 function Sidebar() {
   return (
-    <div className="">
+    <div className="theScroller h-full overflow-y-auto">
       <Navbar />
       <Search />
       <Chats />

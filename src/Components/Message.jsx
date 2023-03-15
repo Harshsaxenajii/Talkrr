@@ -14,8 +14,7 @@ const Message = ({ message }) => {
   const ExactTime = (timeStamp) => {
     const date = new Date(timeStamp * 1000);
     let hours = date.getHours(),
-      minutes = date.getMinutes(),
-      seconds = date.getSeconds();
+      minutes = date.getMinutes();
     return hours + ":" + minutes;
   };
 
@@ -25,6 +24,9 @@ const Message = ({ message }) => {
         <div className="flex flex-col my-2">
           <message className="bg-sky-700 px-3 py-2 w-fit rounded-xl flex flex-col items-end">
             <span>{message.text}</span>
+            <span className="text-[10px] text-gray-400">
+              {ExactTime(message.date.seconds)}
+            </span>
           </message>
         </div>
       )}

@@ -17,7 +17,7 @@ function Messages() {
     };
   }, [data.chatId]);
   return (
-    <div className="theScroller text-white h-[53rem] overflow-auto">
+    <div className="theScroller text-white h-[42rem] md:h-[55rem] overflow-auto">
       {messages.map((m) => (
         <Message message={m} key={m.id} />
       ))}

@@ -50,7 +50,7 @@ function Input() {
     e.code === "Enter" && handleSend();
   };
   return (
-    <div className="fixed w-[63%] 2xl:w-[51%] bottom-1 my-2 mx-4 ">
+    <div className="fixed w-[93%] 2xl:w-[51%] bottom-1 my-2 mx-4 ">
       <div className="flex w-full justify-between items-center gap-4">
         <div>
           <img className="w-8" src="./Images/attachments.png" alt="" />

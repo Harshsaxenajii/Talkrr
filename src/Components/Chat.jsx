@@ -2,17 +2,29 @@ import React, { useContext } from "react";
 import Messages from "./Messages";
 import Input from "./Input";
 import { ChatContext } from "../context/ChatContext";
+import { useNavigate } from "react-router-dom";
 
 function Chat() {
+  const navigate = useNavigate();
   const { data } = useContext(ChatContext);
+  const { dispatch } = useContext(ChatContext);
+  const back = (u) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+  };
   return (
     <div>
       {data.user?.displayName && (
         <div>
-          <div className="flex bg-[#0a0026] px-4 py-5 justify-between">
-            <div className="flex gap-6">
+          <div className="flex bg-[#0a0026] px-4 py-3 md:py-1 justify-between">
+            <div className="flex gap-6 items-center">
               <img
-                className="w-12 h-12 rounded-full"
+                onClick={() => back({ displayName: null, uid: null })}
+                className="w-7 h-7 cursor-pointer"
+                src="./Images/back.png"
+                alt=""
+              />
+              <img
+                className="w-11 h-11 rounded-full"
                 src="./Images/person.png"
                 alt=""
               />

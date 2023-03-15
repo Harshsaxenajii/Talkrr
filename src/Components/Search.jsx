@@ -67,8 +67,15 @@ function Search() {
           [combinedId + ".date"]: serverTimestamp(),
         });
       }
-    } catch (err) {}
+    } catch (err) {
+      setErr(true);
+    }
 
+    setUser(null);
+    setUsername("");
+  };
+
+  const handleClose = () => {
     setUser(null);
     setUsername("");
   };
@@ -83,6 +90,12 @@ function Search() {
           placeholder="Find a user"
           onChange={(e) => setUsername(e.target.value)}
           onKeyDown={handleKey}
+        />
+        <img
+          onClick={handleClose}
+          className="w-5 cursor-pointer"
+          src="./Images/close.png"
+          alt=""
         />
       </div>
       {err && <span className="text-white">User not found!</span>}

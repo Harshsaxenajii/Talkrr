@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+
 import { auth, db } from "../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -27,6 +28,14 @@ function Chats() {
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 
+  function limit(string = "", limit = 0) {
+    if (string.length > limit) {
+      return string.slice(0, limit) + "...";
+    } else {
+      return string;
+    }
+  }
+
   return (
     <div className="theScroller overflow-y-scroll h-[44.8rem] md:h-[56.8rem]">
       {Object.entries(chats)
@@ -46,7 +55,7 @@ function Chats() {
             </div>
             <div>
               <div>{chat[1].userInfo.displayName}</div>
-              <div>{chat[1].lastMessage?.text}</div>
+              <div>{limit(chat[1].lastMessage?.text, 30)}</div>
             </div>
           </div>
         ))}

@@ -32,7 +32,7 @@ function Search() {
   };
 
   const handleKey = (e) => {
-    e.code === "Enter" && handleSearch();
+    e.code === "Enter" || ("Arrow" && handleSearch());
   };
 
   const handleSelect = async () => {

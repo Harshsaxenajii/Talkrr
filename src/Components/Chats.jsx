@@ -37,7 +37,7 @@ function Chats() {
   }
 
   return (
-    <div className="theScroller overflow-y-scroll h-[44.8rem] md:h-[56.8rem]">
+    <div className="theScroller overflow-y-scroll h-[90vh]">
       {Object.entries(chats)
         ?.sort((a, b) => b[1].date - a[1].date)
         .map((chat) => (

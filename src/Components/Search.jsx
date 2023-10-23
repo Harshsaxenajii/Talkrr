@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   collection,
   query,
@@ -11,6 +11,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import { ChatContext } from "../context/ChatContext";
 function Search() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
@@ -31,9 +32,20 @@ function Search() {
     }
   };
 
-  const handleKey = (e) => {
-    e.code === "Enter" || ("Arrow" && handleSearch());
+  const { dispatch } = useContext(ChatContext);
+
+  const handleChatSelect = (u) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+    handleClose();
   };
+
+  const handleKey = (e) => {
+    e.code === ("Enter" || "Arrow") && handleSearch();
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [username]);
 
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
@@ -81,12 +93,13 @@ function Search() {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="flex items-center border-b-2 border-[#181818] gap-2 px-4">
         <img className="w-6 h-6" src="./Images/find.png" alt="" />
         <input
           className="w-full bg-transparent px-3 py-2 outline-none text-white"
           type="text"
+          value={username}
           placeholder="Find a user"
           onChange={(e) => setUsername(e.target.value)}
           onKeyDown={handleKey}
@@ -99,8 +112,14 @@ function Search() {
         />
       </div>
       {err && <span className="text-white">User not found!</span>}
+      {console.log(user)}
       {user && (
-        <div onClick={handleSelect} className="cursor-pointer">
+        <div
+          onClick={() => {
+            handleSelect, handleChatSelect(user);
+          }}
+          className="cursor-pointer"
+        >
           <div className="text-gray-300 px-4 my-2">1 Result Found</div>
           <div className="flex items-center gap-4 px-4 py-2 text-white border-b-2">
             <div>

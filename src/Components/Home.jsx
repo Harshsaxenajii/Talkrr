@@ -6,19 +6,20 @@ import Sidebar from "./Sidebar";
 function Home() {
   const { data } = useContext(ChatContext);
   return (
-    <div className="h-[50.7rem] md:h-[62.955rem] bg-[#020209] flex justify-center items-center">
-      <div className="back h-[50.7rem] md:h-[62.955rem] w-[95rem] bg-[#212121] shadow-md flex ">
+    <div className="h-[100vh] bg-[#020209] flex justify-center items-center overflow-hidden">
+      <div className=" relative h-[100vh] w-[95rem] bg-[#212121] shadow-md flex ">
         <div
-          className={`w-full md:w-1/3 bg-[#1d1f39] ${
+          className={`w-full md:w-1/3 bg-[#1d1f39] z-20 ${
             data.user?.displayName && "hidden md:block"
           }`}
         >
           <Sidebar />
         </div>
 
+        <img className="absolute h-[100vh] w-[100vw]" src="./Images/bg.jpg" />
         {data && (
           <div
-            className={`md:w-2/3 h-[] ${data.user?.displayName && "w-full"}`}
+            className={`md:w-2/3 z-10 ${data.user?.displayName && "w-full"}`}
           >
             <Chat />
           </div>

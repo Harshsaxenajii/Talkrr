@@ -14,7 +14,7 @@ function Chat() {
   return (
     <div>
       {data.user?.displayName && (
-        <div>
+        <div className="">
           <div className="flex bg-[#0a0026] px-4 py-3 md:py-1 justify-between">
             <div className="flex gap-6 items-center">
               <img
@@ -46,8 +46,12 @@ function Chat() {
               />
             </div>
           </div>
-          <Messages />
-          <Input />
+          <div className="">
+            <Messages />
+          </div>
+          <div className="">
+            <Input />
+          </div>
         </div>
       )}
     </div>

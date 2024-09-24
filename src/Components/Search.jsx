@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   collection,
   query,
@@ -12,10 +12,25 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { ChatContext } from "../context/ChatContext";
+
 function Search() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
+  const { dispatch } = useContext(ChatContext);
+
+  // Debounce effect to trigger search after user stops typing
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (username.trim()) {
+        handleSearch();
+      } else {
+        setUser(null); // Clear user when input is cleared
+      }
+    }, 500); // Adjust debounce timing as needed
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [username]);
 
   const handleSearch = async () => {
     const q = query(
@@ -24,31 +39,26 @@ function Search() {
     );
     try {
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-      });
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          setUser(doc.data());
+        });
+        setErr(false);
+      } else {
+        setUser(null);
+        setErr(true); // Set error if no user found
+      }
     } catch (err) {
       setErr(true);
     }
   };
-
-  const { dispatch } = useContext(ChatContext);
 
   const handleChatSelect = (u) => {
     dispatch({ type: "CHANGE_USER", payload: u });
     handleClose();
   };
 
-  const handleKey = (e) => {
-    e.code === ("Enter" || "Arrow") && handleSearch();
-  };
-
-  useEffect(() => {
-    handleSearch();
-  }, [username]);
-
   const handleSelect = async () => {
-    //check whether the group(chats in firestore) exists, if not create
     const combinedId =
       auth.currentUser.uid > user.uid
         ? auth.currentUser.uid + user.uid
@@ -57,15 +67,14 @@ function Search() {
       const res = await getDoc(doc(db, "chats", combinedId));
 
       if (!res.exists()) {
-        //create a chat in chats collection
+        // Create a chat in the chats collection
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
-        //create user chats
+        // Create user chats for both users
         await updateDoc(doc(db, "userChats", auth.currentUser.uid), {
           [combinedId + ".userInfo"]: {
             uid: user.uid,
             displayName: user.displayName,
-            // photoURL: user.photoURL,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
@@ -74,7 +83,6 @@ function Search() {
           [combinedId + ".userInfo"]: {
             uid: auth.currentUser.uid,
             displayName: auth.currentUser.displayName,
-            // photoURL: auth.currentUser.photoURL,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
@@ -90,10 +98,11 @@ function Search() {
   const handleClose = () => {
     setUser(null);
     setUsername("");
+    setErr(false);
   };
 
   return (
-    <div className="">
+    <div>
       <div className="flex items-center border-b-2 border-[#181818] gap-2 px-4">
         <img className="w-6 h-6" src="./Images/find.png" alt="" />
         <input
@@ -102,17 +111,15 @@ function Search() {
           value={username}
           placeholder="Find a user"
           onChange={(e) => setUsername(e.target.value)}
-          onKeyDown={handleKey}
         />
         <img
           onClick={handleClose}
           className="w-5 cursor-pointer"
           src="./Images/close.png"
-          alt=""
+          alt="Close"
         />
       </div>
       {err && <span className="text-white">User not found!</span>}
-      {console.log(user)}
       {user && (
         <div
           onClick={() => {
@@ -127,7 +134,7 @@ function Search() {
               <img
                 className="w-12 h-12 rounded-full"
                 src="./Images/person.png"
-                alt=""
+                alt="User"
               />
             </div>
             <div>{user.displayName}</div>

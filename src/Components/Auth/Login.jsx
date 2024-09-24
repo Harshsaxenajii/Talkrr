@@ -19,6 +19,7 @@ function Login() {
       setError(err.message);
     }
   };
+
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
@@ -30,61 +31,77 @@ function Login() {
   };
 
   return (
-    <div>
-      <div className="newBack  h-[50.7rem] md:h-[62.955rem] flex justify-center items-center  ">
-        <div className=" md:h-[50rem] w-[23rem] h-[36rem] md:w-[60rem] border-blue-900 border-2 rounded-md bg-[#1d1f39] items-center justify-center  flex flex-col">
-          <form action="" className="flex flex-col gap-4 justify-center">
-            <div className="flex gap-6 mb-12">
-              <div className="text-cyan-500 text-4xl md:text-6xl">
-                Login With Talkrr
-              </div>
-            </div>
-            {error && (
-              <div className="w-full py-1 px-3  bg-red-600 text-gray-200">
-                {error}
-              </div>
-            )}
-            <div className="flex flex-col gap-1">
-              <div className=" text-gray-300">Email</div>
-              <input
-                className="outline-none border-blue-700 border-2 py-1 px-2 w-60 md:w-96 "
-                placeholder="Enter Your Email Name"
-                onChange={(e) => setEmail(e.target.value)}
-                type="text"
-                name=""
-                id=""
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <div className=" text-gray-300">Password</div>
-              <input
-                className="outline-none border-blue-700 border-2 py-1 px-2 w-60 md:w-96 "
-                placeholder="Enter Your Password Name"
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                name=""
-                id=""
-              />
-            </div>
-            <Link to="/Register">
-              <div className="py-3  text-sm text-cyan-400">
-                New Customer ? Regiser Now.
-              </div>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full space-y-6">
+        <h2 className="text-center text-3xl font-extrabold text-gray-900">
+          Login to Talkrr
+        </h2>
+        {error && (
+          <div className="bg-red-500 text-white py-2 px-4 rounded">{error}</div>
+        )}
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label
+              htmlFor="user"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email
+            </label>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <Link
+              to="/Register"
+              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              New user? Register now
             </Link>
+          </div>
+          <div className="space-y-4">
             <button
               onClick={handleGoogleSignIn}
-              className="text-white bg-gradient-to-l w-6 "
+              className="w-full flex justify-center items-center bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded-md shadow-sm hover:bg-gray-100 transition ease-in-out"
             >
-              <img src="./Images/google.png" alt="" />
+              <img
+                src="./Images/google.png"
+                alt="Google Icon"
+                className="w-5 h-5 mr-2"
+              />
+              Sign in with Google
             </button>
             <button
-              onClick={handleSubmit}
-              className="text-white bg-gradient-to-l from-black to-[#0a0026] hover:to-black hover:from-[#0a0026] transition-all delay-75 ease-in-out py-1 px-2 w-60 md:w-96"
+              type="submit"
+              className=" w-full bg-indigo-600 text-black border-[1px] hover:text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 transition ease-in-out"
             >
-              Comfirm With Your Details
+              Login with your credentials
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

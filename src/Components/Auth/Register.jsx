@@ -6,9 +6,9 @@ import { useUserAuth } from "../../context/UserAuthContext";
 import { db } from "../../firebase";
 
 function Register() {
-  const [displayName, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [displayName, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { signUp } = useUserAuth();
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function Register() {
         displayName,
       });
 
-      //create user on firestore
+      // Create user on firestore
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         displayName: displayName,
@@ -31,7 +31,7 @@ function Register() {
         password: password,
       });
 
-      //create empty user chats on firestore
+      // Create empty user chats on firestore
       await setDoc(doc(db, "userChats", res.user.uid), {});
       navigate("/");
     } catch (err) {
@@ -40,77 +40,69 @@ function Register() {
   };
 
   return (
-    <div className="newBack  h-[50.7rem] md:h-[62.955rem] flex justify-center items-center ">
-      <div className="md:h-[50rem] w-[23rem] h-[36rem] md:w-[60rem] border-blue-900 border-2 rounded-md bg-[#1d1f39] items-center justify-center  flex flex-col relative">
-        <form action="" className="flex flex-col gap-4 justify-center items-center">
-          <div className="flex gap-6 mb-12">
-            <div className="text-cyan-500 text-4xl md:text-6xl">SignUp Here</div>
-          </div>
-          {error && (
-            <div className="w-full py-1 px-3  bg-red-600 text-gray-200">
-              {error}
-            </div>
-          )}
-          <div className="flex flex-col gap-1">
-            <div className=" text-gray-300">Your Name</div>
-            <input
-              className="outline-none border-blue-700 border-2 py-1 px-2 w-60 md:w-96 "
-              placeholder="Enter Your Name"
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              name=""
-              id=""
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <div className=" text-gray-300">Email</div>
-            <input
-              className="outline-none border-blue-700 border-2 py-1 px-2 w-60 md:w-96  "
-              placeholder="Enter Your Email Name"
-              onChange={(e) => setEmail(e.target.value)}
-              type="text"
-              name=""
-              id=""
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <div className=" text-gray-300">Password</div>
-            <input
-              className="outline-none border-blue-700 border-2 py-1 px-2 w-60 md:w-96 "
-              placeholder="Enter Your Password Name"
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              name=""
-              id=""
-            />
-          </div>
-          <div className="cursor-pointer  outline-none py-1 my-1 text-cyan-200 w-60 md:w-96">
-            <input style={{ display: "none" }} type="file" id="file" />
-            <label
-              className="flex gap-4 items-center cursor-pointer"
-              htmlFor="file"
-            >
-              <img
-                className="w-8 h-8 rounded-full border-2"
-                src="./Images/person.png"
-                alt=""
-              />
-              <span>Add an Avatar</span>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full space-y-6">
+        <h2 className="text-center text-3xl font-extrabold text-gray-900">
+          Sign Up
+        </h2>
+
+        {error && (
+          <div className="bg-red-600 text-white p-2 rounded mb-3">{error}</div>
+        )}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Name
             </label>
+            <input
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+              required
+            />
           </div>
-          <Link to="/Login">
-            <div className="py-3  text-sm text-cyan-400">
-              Already Register ? Login Now.
-            </div>
-          </Link>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+              required
+            />
+          </div>
 
           <button
-            onClick={handleSubmit}
-            className="text-white bg-gradient-to-l from-black to-[#0a0026] hover:to-black hover:from-[#0a0026] transition-all delay-75 ease-in-out py-1 px-2 w-60 md:w-96"
+            type="submit"
+            className="w-full bg-indigo-600 text-black border-[1px] hover:text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 transition ease-in-out"
           >
-            Comfirm With Your Details
+            Register
           </button>
         </form>
+
+        <div className="mt-5 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link to="/Login" className="text-purple-600 hover:underline">
+            Log in
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -116,7 +116,8 @@ function Search() {
       {user && (
         <div
           onClick={() => {
-            handleSelect, handleChatSelect(user);
+            handleSelect();
+            handleChatSelect(user);
           }}
           className="cursor-pointer"
         >
